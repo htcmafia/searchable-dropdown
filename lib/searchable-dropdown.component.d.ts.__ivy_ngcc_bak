@@ -1,0 +1,35 @@
+import { EventEmitter, OnInit } from '@angular/core';
+export declare class SearchableDropdownComponent implements OnInit {
+    onStart: EventEmitter<SearchableDropdownComponent>;
+    onOpen: EventEmitter<void>;
+    key: number;
+    keyChange: EventEmitter<number>;
+    value: string;
+    valueChange: EventEmitter<string>;
+    placeHolder: string;
+    onSearch: EventEmitter<string>;
+    defaultItem: {
+        key: any;
+        value: any;
+    };
+    itemsToShow: {
+        key: any;
+        value: any;
+    }[];
+    showItemList: boolean;
+    isListLoading: boolean;
+    private searchListTimeOut;
+    addNewItem: boolean;
+    private isItemSelected;
+    private isFocusInsideComponent;
+    private isComponentClicked;
+    constructor();
+    ngOnInit(): void;
+    onItemClick(index: number): void;
+    searchList(): void;
+    addItem(key: number, value: string): void;
+    showAddNewItemSection(): void;
+    private clickInside;
+    private clickout;
+    private handleKeyboardEvent;
+}

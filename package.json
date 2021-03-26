@@ -1,0 +1,42 @@
+{
+  "name": "searchable-dropdown",
+  "version": "0.0.9",
+  "peerDependencies": {
+    "@angular/common": "^10.2.4",
+    "@angular/core": "^10.2.4"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
+  "author": {
+    "name": "Hamza Abbas",
+    "email": "hamza13sw185@gmail.com"
+  },
+  "description": "Allows you to search directly in the drop down and add new items to the list. This component does not requrie Jquery",
+  "keywords": [
+    "Drop down",
+    "search able",
+    "UI component",
+    "Angular",
+    "select"
+  ],
+  "main": "bundles/searchable-dropdown.umd.js",
+  "module": "fesm2015/searchable-dropdown.js",
+  "es2015": "fesm2015/searchable-dropdown.js",
+  "esm2015": "esm2015/searchable-dropdown.js",
+  "fesm2015": "fesm2015/searchable-dropdown.js",
+  "typings": "searchable-dropdown.d.ts",
+  "metadata": "searchable-dropdown.metadata.json",
+  "sideEffects": false,
+  "__processed_by_ivy_ngcc__": {
+    "es2015": "10.2.4",
+    "esm2015": "10.2.4",
+    "fesm2015": "10.2.4",
+    "main": "10.2.4",
+    "module": "10.2.4",
+    "typings": "10.2.4"
+  },
+  "scripts": {
+    "prepublishOnly": "node --eval \"console.error('ERROR: Trying to publish a package that has been compiled by NGCC. This is not allowed.\\nPlease delete and rebuild the package, without compiling with NGCC, before attempting to publish.\\nNote that NGCC may have been run by importing this package into another project that is being built with Ivy enabled.\\n')\" && exit 1"
+  }
+}

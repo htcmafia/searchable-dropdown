@@ -1,0 +1,185 @@
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/forms')) :
+    typeof define === 'function' && define.amd ? define('searchable-dropdown', ['exports', '@angular/core', '@angular/common', '@angular/forms'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global['searchable-dropdown'] = {}, global.ng.core, global.ng.common, global.ng.forms));
+}(this, (function (exports, i0, common, forms) { 'use strict';
+
+    var SearchableDropdownService = /** @class */ (function () {
+        function SearchableDropdownService() {
+        }
+        return SearchableDropdownService;
+    }());
+    SearchableDropdownService.ɵprov = i0.ɵɵdefineInjectable({ factory: function SearchableDropdownService_Factory() { return new SearchableDropdownService(); }, token: SearchableDropdownService, providedIn: "root" });
+    SearchableDropdownService.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    SearchableDropdownService.ctorParameters = function () { return []; };
+
+    var SearchableDropdownComponent = /** @class */ (function () {
+        function SearchableDropdownComponent() {
+            this.onStart = new i0.EventEmitter();
+            this.onOpen = new i0.EventEmitter();
+            this.keyChange = new i0.EventEmitter();
+            this.valueChange = new i0.EventEmitter();
+            //Placeholder
+            this.placeHolder = "";
+            //Calls on keyup
+            this.onSearch = new i0.EventEmitter();
+            this.itemsToShow = [];
+            //is item list visible
+            this.showItemList = false;
+            //is loading On/Off
+            this.isListLoading = false;
+            //Open/Close add new item screen
+            this.addNewItem = false;
+            this.isItemSelected = false;
+            this.isFocusInsideComponent = false;
+            this.isComponentClicked = false;
+        }
+        SearchableDropdownComponent.prototype.ngOnInit = function () {
+            if (this.defaultItem)
+                this.addItem(this.defaultItem.key, this.defaultItem.value);
+            this.onStart.emit(this);
+        };
+        //When item is selected from the list.
+        SearchableDropdownComponent.prototype.onItemClick = function (index) {
+            this.value = this.itemsToShow[index].value;
+            this.key = this.itemsToShow[index].key;
+            this.value = this.itemsToShow[index].value;
+            this.keyChange.emit(this.key);
+            this.valueChange.emit(this.value);
+            this.isItemSelected = true;
+        };
+        SearchableDropdownComponent.prototype.searchList = function () {
+            var _this = this;
+            if (this.searchListTimeOut)
+                clearTimeout(this.searchListTimeOut);
+            this.searchListTimeOut = setTimeout(function () {
+                _this.onSearch.emit(_this.value);
+            }, 500);
+        };
+        //Manually add an item to the list.
+        SearchableDropdownComponent.prototype.addItem = function (key, value) {
+            this.itemsToShow.push({ key: key, value: value });
+            this.value = value;
+            this.key = key;
+            this.keyChange.emit(this.key);
+        };
+        //open/close add new item screne.
+        SearchableDropdownComponent.prototype.showAddNewItemSection = function () {
+            this.addNewItem = !this.addNewItem;
+        };
+        //if item list is in view hide it,
+        //if item list is hidden bring it in view.
+        SearchableDropdownComponent.prototype.clickInside = function () {
+            if (!this.showItemList) {
+                this.onOpen.emit(null);
+            }
+            this.showItemList = true;
+            this.isFocusInsideComponent = true;
+            this.isComponentClicked = true;
+            if (this.isItemSelected) {
+                this.isItemSelected = false;
+                //Force system to think the click was made outside.
+                this.isFocusInsideComponent = false;
+                this.clickout();
+            }
+        };
+        //Close when click outside the component
+        SearchableDropdownComponent.prototype.clickout = function () {
+            var _this = this;
+            if (!this.isFocusInsideComponent && this.isComponentClicked) {
+                this.showItemList = false;
+                // do the heavy process
+                this.isComponentClicked = false;
+                var valueFound_1 = false;
+                var currentItem_1;
+                this.itemsToShow.filter(function (item) {
+                    if (_this.value != null) {
+                        currentItem_1 = item.value;
+                        if (currentItem_1.toString().toLowerCase() == _this.value.toString().toLowerCase()) {
+                            _this.value = item.value;
+                            _this.key = item.key;
+                            _this.value = item.value;
+                            _this.keyChange.emit(_this.key);
+                            _this.valueChange.emit(_this.value);
+                            valueFound_1 = true;
+                            return;
+                        }
+                    }
+                });
+                if (!valueFound_1) {
+                    this.value = "";
+                }
+            }
+            this.isFocusInsideComponent = false;
+        };
+        //Close on Enter key
+        SearchableDropdownComponent.prototype.handleKeyboardEvent = function (event) {
+            this.showItemList = false;
+            // do the heavy process
+            this.isComponentClicked = false;
+        };
+        return SearchableDropdownComponent;
+    }());
+    SearchableDropdownComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'app-searchable-dropdown',
+                    template: "<div class=\"search-area\">\r\n  <input #input type=\"text\" [(ngModel)]=\"value\" class=\"search\" (keyup)=\"searchList()\" [placeholder]=\"placeHolder\">\r\n  <i class=\"fa fa-sort-down\"></i>\r\n  <div class=\"drop-down\" [ngClass]=\"(showItemList)? 'drop-down-open': 'drop-down-close'\">\r\n    <div class=\"list\" *ngIf=\"!addNewItem\">\r\n      <a href=\"javascript:void(0)\" class=\"plus-icon\" (click)=\"showAddNewItemSection()\"><i class=\"fa fa-plus\"\r\n          aria-hidden=\"true\"></i>Add New</a>\r\n      <p id=\"{{item.key}}\" *ngFor=\"let item of itemsToShow; let i = index\" (click)=\"onItemClick(i)\">{{item.value}}</p>\r\n      <p *ngIf=\"itemsToShow.length < 1 && !isListLoading\" class=\"not-found\">Not Found</p>\r\n\r\n      <div class=\"loading\" *ngIf=\"isListLoading\">\r\n        <div class=\"spinner-border\"></div>\r\n        <span>Loading...</span>\r\n      </div>\r\n    </div>\r\n\r\n    <ng-container *ngIf=\"addNewItem\">\r\n      <ng-content class=\"add-new-section\">\r\n\r\n      </ng-content>\r\n    </ng-container>\r\n\r\n  </div>\r\n\r\n</div>\r\n",
+                    styles: [".search-area{position:relative}.search-area i.fa-sort-down{pointer-events:none;position:absolute;right:5%;top:25%}.search{background:#fff;border:1px solid #ccc;border-radius:5px;color:#5c6873;cursor:default;font-size:.875rem;padding:.375rem .75rem;position:relative;width:100%}.search:focus{background-color:#fff;border-color:#8ad4ee;box-shadow:0 0 0 .2rem rgba(32,168,216,.25);color:#5c6873;cursor:text;outline:0}.list{overflow-x:hidden}.drop-down{background-color:#fff;border:1px solid #ccc;box-sizing:border-box;max-height:200px!important;overflow-x:visible;overflow-y:scroll;padding:0 0 5px;position:absolute;width:100%;z-index:999}.drop-down p{margin:0;padding:7px 10px}.drop-down p:hover{background-color:#5353f5;color:#fff}.drop-down .not-found{color:grey;font-weight:700;padding:0}.drop-down .not-found:hover{background-color:inherit;color:grey}.drop-down-open{display:block}.drop-down-close{display:none}.spinner-border{height:1.5rem;width:1.5rem}.plus-icon{background-color:#fff;border-bottom:1px solid #ccc;color:#000;float:left;margin-bottom:5px;padding:5px 10px;text-align:left;text-decoration:none;width:100%}.plus-icon i{margin-right:5px}"]
+                },] }
+    ];
+    SearchableDropdownComponent.ctorParameters = function () { return []; };
+    SearchableDropdownComponent.propDecorators = {
+        onStart: [{ type: i0.Output }],
+        onOpen: [{ type: i0.Output }],
+        key: [{ type: i0.Input }],
+        keyChange: [{ type: i0.Output }],
+        value: [{ type: i0.Input }],
+        valueChange: [{ type: i0.Output }],
+        placeHolder: [{ type: i0.Input }],
+        onSearch: [{ type: i0.Output }],
+        defaultItem: [{ type: i0.Input }],
+        clickInside: [{ type: i0.HostListener, args: ['click',] }],
+        clickout: [{ type: i0.HostListener, args: ['document:click',] }],
+        handleKeyboardEvent: [{ type: i0.HostListener, args: ['window:keyup.enter', ['$event'],] }]
+    };
+
+    var SearchableDropdownModule = /** @class */ (function () {
+        function SearchableDropdownModule() {
+        }
+        return SearchableDropdownModule;
+    }());
+    SearchableDropdownModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    declarations: [SearchableDropdownComponent],
+                    imports: [
+                        common.CommonModule,
+                        forms.FormsModule,
+                    ],
+                    exports: [
+                        SearchableDropdownComponent,
+                        common.CommonModule,
+                        forms.FormsModule,
+                    ]
+                },] }
+    ];
+
+    /*
+     * Public API Surface of searchable-dropdown
+     */
+
+    /**
+     * Generated bundle index. Do not edit.
+     */
+
+    exports.SearchableDropdownComponent = SearchableDropdownComponent;
+    exports.SearchableDropdownModule = SearchableDropdownModule;
+    exports.SearchableDropdownService = SearchableDropdownService;
+
+    Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
+//# sourceMappingURL=searchable-dropdown.umd.js.map

@@ -1,0 +1,21 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SearchableDropdownComponent } from './searchable-dropdown.component';
+export class SearchableDropdownModule {
+}
+SearchableDropdownModule.decorators = [
+    { type: NgModule, args: [{
+                declarations: [SearchableDropdownComponent],
+                imports: [
+                    CommonModule,
+                    FormsModule,
+                ],
+                exports: [
+                    SearchableDropdownComponent,
+                    CommonModule,
+                    FormsModule,
+                ]
+            },] }
+];
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic2VhcmNoYWJsZS1kcm9wZG93bi5tb2R1bGUuanMiLCJzb3VyY2VSb290IjoiQzovVXNlcnMvaHAuSEFNWkEvRGVza3RvcC9HaXRIdWIgUHJvamVjdHMvc2VhcmNoYWJsZS1kcm9wZG93bi9wcm9qZWN0cy9zZWFyY2hhYmxlLWRyb3Bkb3duL3NyYy8iLCJzb3VyY2VzIjpbImxpYi9zZWFyY2hhYmxlLWRyb3Bkb3duLm1vZHVsZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxPQUFPLEVBQUUsWUFBWSxFQUFFLE1BQU0saUJBQWlCLENBQUM7QUFDL0MsT0FBTyxFQUFFLFFBQVEsRUFBRSxNQUFNLGVBQWUsQ0FBQztBQUN6QyxPQUFPLEVBQUUsV0FBVyxFQUFFLE1BQU0sZ0JBQWdCLENBQUM7QUFDN0MsT0FBTyxFQUFFLDJCQUEyQixFQUFFLE1BQU0saUNBQWlDLENBQUM7QUFnQjlFLE1BQU0sT0FBTyx3QkFBd0I7OztZQVpwQyxRQUFRLFNBQUM7Z0JBQ1IsWUFBWSxFQUFFLENBQUMsMkJBQTJCLENBQUM7Z0JBQzNDLE9BQU8sRUFBRTtvQkFDUCxZQUFZO29CQUNaLFdBQVc7aUJBQ1o7Z0JBQ0QsT0FBTyxFQUFFO29CQUNQLDJCQUEyQjtvQkFDM0IsWUFBWTtvQkFDWixXQUFXO2lCQUNaO2FBQ0YiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBDb21tb25Nb2R1bGUgfSBmcm9tICdAYW5ndWxhci9jb21tb24nO1xuaW1wb3J0IHsgTmdNb2R1bGUgfSBmcm9tICdAYW5ndWxhci9jb3JlJztcbmltcG9ydCB7IEZvcm1zTW9kdWxlIH0gZnJvbSAnQGFuZ3VsYXIvZm9ybXMnO1xuaW1wb3J0IHsgU2VhcmNoYWJsZURyb3Bkb3duQ29tcG9uZW50IH0gZnJvbSAnLi9zZWFyY2hhYmxlLWRyb3Bkb3duLmNvbXBvbmVudCc7XG5cblxuXG5ATmdNb2R1bGUoe1xuICBkZWNsYXJhdGlvbnM6IFtTZWFyY2hhYmxlRHJvcGRvd25Db21wb25lbnRdLFxuICBpbXBvcnRzOiBbXG4gICAgQ29tbW9uTW9kdWxlLFxuICAgIEZvcm1zTW9kdWxlLFxuICBdLFxuICBleHBvcnRzOiBbXG4gICAgU2VhcmNoYWJsZURyb3Bkb3duQ29tcG9uZW50LFxuICAgIENvbW1vbk1vZHVsZSxcbiAgICBGb3Jtc01vZHVsZSxcbiAgXVxufSlcbmV4cG9ydCBjbGFzcyBTZWFyY2hhYmxlRHJvcGRvd25Nb2R1bGUgeyB9XG4iXX0=
